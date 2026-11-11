@@ -1,0 +1,23 @@
+# Build settings for AWS Amplify Hosting.
+# Amplify reads this file automatically when you connect the GitHub repo.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 24
+        - nvm use 24
+        - node -v
+        - npm ci
+    build:
+      commands:
+        # Show which API address is baked into this build (check it in the build log)
+        - echo "VITE_API_URL=$VITE_API_URL"
+        - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
